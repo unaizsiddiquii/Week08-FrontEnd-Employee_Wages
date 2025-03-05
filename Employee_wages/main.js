@@ -1,23 +1,23 @@
 const WAGE_PER_HOUR = 20;
 const FULL_TIME_HOURS = 8;
 const PART_TIME_HOURS = 4;
+const NUM_OF_WORKING_DAYS = 20;
 
 function getWorkHours(workType) {
   switch (workType) {
     case 1:
-      console.log("Employee worked Part Time");
       return PART_TIME_HOURS;
     case 2:
-      console.log("Employee worked Full Time");
       return FULL_TIME_HOURS;
     default:
-      console.log("Employee did not work");
       return 0;
   }
 }
-let workType = Math.floor(Math.random() * 3);
+let workHours = 0;
 
-let workHours = getWorkHours(workType);
-
+for (let day = 0; day <= NUM_OF_WORKING_DAYS; day++) {
+  let workType = Math.floor(Math.random() * 3);
+  workHours += getWorkHours(workType);
+}
 let dailyWage = workHours * WAGE_PER_HOUR;
-console.log("Daily Wage: $" + dailyWage);
+console.log("Total Wage of "+NUM_OF_WORKING_DAYS +" Days is : $" + dailyWage);
