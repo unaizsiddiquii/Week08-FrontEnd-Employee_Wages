@@ -1,7 +1,8 @@
 const WAGE_PER_HOUR = 20;
 const FULL_TIME_HOURS = 8;
 const PART_TIME_HOURS = 4;
-const NUM_OF_WORKING_DAYS = 20;
+const MAX_WORKING_DAYS = 20;
+const MAX_WORKING_HOURS = 160;
 
 function getWorkHours(workType) {
   switch (workType) {
@@ -14,10 +15,21 @@ function getWorkHours(workType) {
   }
 }
 let workHours = 0;
+let totalHours = 0;
+let totalDays = 0;
 
-for (let day = 0; day <= NUM_OF_WORKING_DAYS; day++) {
+while (totalDays < MAX_WORKING_DAYS && totalHours < MAX_WORKING_HOURS) {
   let workType = Math.floor(Math.random() * 3);
-  workHours += getWorkHours(workType);
+  let workHours = getWorkHours(workType);
+
+  if (totalHours + workHours > MAX_WORKING_DAYS) {
+    workHours = MAX_WORKING_DAYS - totalDays;
+  }
+  totalHours += workHours;
+  totalDays++;
 }
-let dailyWage = workHours * WAGE_PER_HOUR;
-console.log("Total Wage of "+NUM_OF_WORKING_DAYS +" Days is : $" + dailyWage);
+
+let totalWage = totalHours * WAGE_PER_HOUR;
+console.log(
+  `Total Days: ${totalDays}, Total Hours: ${totalHours}, Total Wage: $${totalWage}`
+);
